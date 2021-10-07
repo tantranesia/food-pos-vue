@@ -13,7 +13,7 @@ const routes = [
     name: 'home',
     component: () => import('@/views/Home.vue'),
     meta: {
-      layout: 'content',
+      layout: 'blank',
     },
   },
   {

@@ -41,6 +41,7 @@ const themeConfig = {
       error: '#FF4C51',
       black: '#2D303E',
       white: '#FFFFFF',
+      base: '#1F1D2B',
     },
     dark: {
       primary: '#EA7C69',

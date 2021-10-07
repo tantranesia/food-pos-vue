@@ -39,6 +39,8 @@ const themeConfig = {
       info: '#16B1FF',
       warning: '#FFB400',
       error: '#FF4C51',
+      black: '#2D303E',
+      white: '#FFFFFF',
     },
     dark: {
       primary: '#EA7C69',

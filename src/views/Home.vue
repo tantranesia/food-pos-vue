@@ -1,8 +1,7 @@
 <template>
   <div>
-    <v-card color="black">
       <v-row>
-        <v-col sm="7" class="pa-10">
+        <v-col :style="{background: $vuetify.theme.themes.light.black}" sm="7" class="pa-10">
           <v-row>
             <p class="display-1 white--text text--darken-2">Nasi Campur Mang ADE</p>
             <v-text-field placeholder="Search"></v-text-field>
@@ -26,24 +25,33 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-card color="base" sm="5">
-          <v-col class="pt-10">
+        <v-app :style="{background: $vuetify.theme.themes.light.base}" sm="5">
+          <v-col class="pt-10 mx-2">
             <p class="display-1 white--text">Orders #34562</p>
-            <v-row class="button-group">
+            <v-row align="center" justify="space-around" class="button-group">
                <v-btn color="primary">Dine-In</v-btn>
+               <v-space></v-space>
               <v-btn color="primary">Take Away</v-btn>
+               <v-space></v-space>
               <v-btn color="primary">Delivery</v-btn>
+               <v-space></v-space>
                <v-btn color="primary">Reservation</v-btn>
             </v-row>
-            <v-row class="justify-space-between">
+            <v-row class="my-6">
             <p class="white--text">Item</p>
-            <p class="white--text">Qty</p>
+            <v-spacer></v-spacer>
+            <p class="white--text mx-10">Qty</p>
             <p class="white--text">Price</p>
             </v-row>
+            <v-flex>
+            <v-row>
+            <v-image src="@/assets/image/nasi-goreng-jawa.jpeg"/>
+            <p class="white--text">Nasi Goreng Jawa</p>
+            </v-row>
+            </v-flex>
           </v-col>
-        </v-card>
+        </v-app>
       </v-row>
-    </v-card>
   </div>
 </template>
 <script>
@@ -78,8 +86,6 @@ export default {
   position: relative;
 }
 .button-group {
-justify: space-between;
-display: flex;
-flex: wrap
+flex-wrap: wrap
 }
 </style>

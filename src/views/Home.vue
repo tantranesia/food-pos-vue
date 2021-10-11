@@ -64,7 +64,7 @@
                   <p class="white--text mx-4">Rp20000</p>
                 </v-col>
                 <v-col sm="2" class="mx-auto">
-                  <v-img :src="trash" max-width="50%" max-height="20px" />
+                  <v-img :src="trash" max-width="50%" max-height="50px" />
                 </v-col>
               </v-row>
               <v-row class="justify-space-between mx-4">
@@ -88,7 +88,7 @@
 <script>
 import axios from 'axios'
 import image from '@/assets/image/nasi-goreng-jawa.jpeg'
-import trash from '@/assets/image/Button.svg'
+import trash from '@/assets/image/Button.png'
 
 export default {
   data() {
@@ -143,7 +143,7 @@ export default {
   height: 40px;
   border-radius: 10px;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
   mx: 5px;
 }
 </style>

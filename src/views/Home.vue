@@ -75,7 +75,7 @@
                 <p>Sub Total</p>
                 <p>0</p>
               </v-row>
-              <v-btn color="primary" class="my-10 button-order">
+              <v-btn color="primary" class="my-10 button-order" block>
                 Confirm Order
               </v-btn>
             </v-flex>

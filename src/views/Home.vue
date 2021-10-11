@@ -43,7 +43,7 @@
             <v-flex>
               <v-row v-for="item in items" :key="item.menu_id" no-gutters>
               <v-col sm="2" class="mx-1">
-                <v-img :src="item.image" class="rounded-circle" max-width="100%" max-height="85px" />
+                <v-img :src="item.image" class="rounded-circle" max-width="90%" max-height="75px" />
               </v-col>
                 <v-col sm="4" class="mx-auto">
                   <p class="white--text">{{ item.name }}</p>
@@ -133,9 +133,10 @@ export default {
 }
 .card-cart {
   border: 1px solid #393c49;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
+  align-items: center;
   mx: 5px;
 }
 </style>

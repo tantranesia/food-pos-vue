@@ -2,7 +2,7 @@
   <div>
     <v-layout fill-width>
       <v-row class="max-width-full">
-        <v-col :style="{ background: $vuetify.theme.themes.light.black }" sm="7" class="pa-10">
+        <v-col :style="{ background: $vuetify.theme.themes.light.black }" md="7" class="pa-10">
           <v-row>
             <p class="display-1 white--text text--darken-2">Nasi Campur Mang ADE</p>
             <v-text-field placeholder="Search"></v-text-field>
@@ -10,13 +10,13 @@
           <p class="white--text text--darken-2">di rumah aja</p>
           <p class="white--text text--darken-2">Wed Oct 06 2021</p>
           <v-row mx="4">
-            <v-col sm="4" v-for="item in items" :key="item.menu_id">
+            <v-col md="4" sm="1" v-for="item in items" :key="item.menu_id">
               <v-card class="card-home px-5 pb-5" color="base">
                 <v-img
                   :src="item.image"
                   class="mx-auto rounded-circle"
-                  width="55%"
-                  height="100px"
+                  width="150px"
+                  height="150px"
                   :z-index="zIndex"
                 />
                 <p class="white--text text--darken-2 text-center">{{ item.name }}</p>
@@ -26,7 +26,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col :style="{ background: $vuetify.theme.themes.light.base }" sm="5">
+        <v-col :style="{ background: $vuetify.theme.themes.light.base }" md="5">
           <v-col class="pt-10">
             <p class="display-1 white--text">Orders #34562</p>
             <v-row class="button-group">
@@ -37,10 +37,10 @@
             </v-row>
             <v-row class="my-6">
             <v-col sm="5">
-              <p class="white--text ml-7 mr-16">Item</p>
+              <p class="white--text ml-7 mr-5">Item</p>
             </v-col>
             <v-col sm="3">
-              <p class="white--text ml-16 mr-10">Qty</p>
+              <p class="white--text ml-5 mr-8 text-center">Qty</p>
             </v-col>
             <v-col sm="3">
               <p class="white--text">Price</p>
@@ -49,10 +49,10 @@
             <v-flex>
               <v-row v-for="item in items" :key="item.menu_id" no-gutters>
               <v-col sm="2" class="mx-1">
-                <v-img :src="item.image" class="rounded-circle" max-width="90%" max-height="75px" />
+                <v-img :src="item.image" class="rounded-circle" max-width="55px" max-height="55px" />
               </v-col>
                 <v-col sm="4" class="mx-auto">
-                  <p class="white--text">{{ item.name }}</p>
+                 <p class="white--text">{{ item.name }}</p>
                   <p class="white--text">Rp{{ item.price }}</p>
                 </v-col>
                 <v-col sm="1">
@@ -151,5 +151,11 @@ export default {
 .trash-image{
   align-items: center;
   justify-content: center;
+}
+.text-card {
+ white-space: nowrap ;
+  word-break: normal;
+    overflow: hidden ;
+    text-overflow: ellipsis;
 }
 </style>

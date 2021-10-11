@@ -50,9 +50,17 @@
               <p class="white--text">Rp{{ item.price }}</p>
               </v-col>
               <div color="base" class="card-cart">
-              <p>1</p>
+              <p class="white--text text-center">1</p>
               </div>
-              <p>Rp20000</p>
+              <p class="white--text mx-4">Rp20000</p>
+            </v-row>
+            <v-row class="justify-space-between">
+            <p>Discount</p>
+            <p>0</p>
+            </v-row>
+            <v-row class="justify-space-between">
+            <p>Sub Total</p>
+            <p>0</p>
             </v-row>
             <v-btn color="primary" class="my-10 button-order">
             Confirm Order

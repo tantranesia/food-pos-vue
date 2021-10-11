@@ -56,15 +56,15 @@
                   <p class="white--text">Rp{{ item.price }}</p>
                 </v-col>
                 <v-col sm="1">
-                  <div color="base" class="card-cart">
-                    <p class="white--text text-center">1</p>
+                  <div color="base">
+                    <p class="white--text text-center card-cart">1</p>
                   </div>
                 </v-col>
                 <v-col sm="2">
                   <p class="white--text mx-4">Rp20000</p>
                 </v-col>
                 <v-col sm="2" class="mx-auto">
-                  <v-img :src="trash" max-width="50%" max-height="50px" />
+                  <v-img :src="trash" max-width="50%" max-height="50px" class="mx-auto"/>
                 </v-col>
               </v-row>
               <v-row class="justify-space-between mx-4">
@@ -142,8 +142,14 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 10px;
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin: auto;
   mx: 5px;
+}
+.trash-image{
+  align-items: center;
+  justify-content: center;
 }
 </style>

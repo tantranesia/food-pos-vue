@@ -36,9 +36,15 @@
                 <v-btn color="primary">Reservation</v-btn>
             </v-row>
             <v-row class="my-6">
+            <v-col sm="5">
               <p class="white--text ml-7 mr-16">Item</p>
+            </v-col>
+            <v-col sm="3">
               <p class="white--text ml-16 mr-10">Qty</p>
+            </v-col>
+            <v-col sm="3">
               <p class="white--text">Price</p>
+            </v-col>
             </v-row>
             <v-flex>
               <v-row v-for="item in items" :key="item.menu_id" no-gutters>
@@ -61,11 +67,11 @@
                   <v-img :src="trash" max-width="50%" max-height="20px" />
                 </v-col>
               </v-row>
-              <v-row class="justify-space-between">
+              <v-row class="justify-space-between mx-4">
                 <p>Discount</p>
                 <p>0</p>
               </v-row>
-              <v-row class="justify-space-between">
+              <v-row class="justify-space-between mx-4">
                 <p>Sub Total</p>
                 <p>0</p>
               </v-row>
@@ -129,7 +135,7 @@ export default {
   min-width: 0%;
 }
 .button-order {
-  min-width: 300px;
+  min-width: 100%;
 }
 .card-cart {
   border: 1px solid #393c49;
@@ -137,6 +143,7 @@ export default {
   height: 40px;
   border-radius: 10px;
   align-items: center;
+  justify-items: center;
   mx: 5px;
 }
 </style>

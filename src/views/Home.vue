@@ -45,27 +45,27 @@
             </v-row>
             <v-flex class="my-10">
               <v-row v-for="item in items" :key="item.menu_id" dense>
-                <v-col sm="2" class="mx-auto">
+                <v-col md="6" sm="2" class="mx-auto">
                   <p class="white--text">{{ item.name }}</p>
                   <p class="white--text">Rp{{ item.price }}</p>
                 </v-col>
-                <v-col sm="3">
+                <v-col md="6" sm="3">
                   <v-img
                     :src="item.image"
                     class="rounded-lg mx-auto my-2"
                     max-width="150px"
                     max-height="100px"
                   />
-                  <v-row class="my-3" md="3">
-                    <v-col md="1" sm="1">
+                  <v-row class="my-3 justify-sapce-between button-cart" md="6" sm="3">
+                    <v-col md="2" sm="1">
                         <v-icon color="primary">{{ mdiPlus }}</v-icon>
                     </v-col>
-                    <v-col md="1" sm="1">
+                    <v-col md="2" sm="1">
                       <div color="base">
                         <p class="white--text text-center card-cart">1</p>
                       </div>
                     </v-col>
-                    <v-col md="1" sm="1">
+                    <v-col md="2" sm="1">
                         <v-icon color="primary">{{ mdiMinus }}</v-icon>
                     </v-col>
                   </v-row>
@@ -152,7 +152,8 @@ export default {
   min-width: 100%;
 }
 .button-cart {
-  border: 2px solid #EA7C69;
+  align-items: center;
+  justify-content: center;
 }
 .card-cart {
   border: 1px solid #393c49;

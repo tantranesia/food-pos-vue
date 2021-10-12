@@ -11,17 +11,17 @@
           <p class="white--text text--darken-2">Wed Oct 06 2021</p>
           <v-row mx="4">
             <v-col md="4" sm="1" v-for="item in items" :key="item.menu_id">
-              <v-card class="card-home px-5 pb-5" color="base">
+              <v-card class="px-5 pb-5 pt-2" color="base">
                 <v-img
                   :src="item.image"
-                  class="mx-auto rounded-circle"
-                  width="150px"
-                  height="150px"
-                  :z-index="zIndex"
+                  class="mx-auto rounded-lg my-2"
+                  width="200px"
+                  height="200px"
                 />
-                <p class="white--text text--darken-2 text-center">{{ item.name }}</p>
-                <p class="white--text text--darken-2 text-center">Rp{{ item.price }}</p>
-                <p class="white--text text--darken-2 text-center">{{ item.description }}</p>
+                <p class="white--text text--darken-2 font-weight-bold">{{ item.name }}</p>
+                <p class="white--text text--darken-2">Rp{{ item.price }}</p>
+                <p class="white--text text--darken-2">{{ item.description }}</p>
+                <v-btn color="primary" block>Add</v-btn>
               </v-card>
             </v-col>
           </v-row>
@@ -30,41 +30,30 @@
           <v-col class="pt-10">
             <p class="display-1 white--text">Orders #34562</p>
             <v-row class="button-group">
-                <v-btn color="primary">Dine-In</v-btn>
-                <v-btn color="primary">Take Away</v-btn>
-                <v-btn color="primary">Delivery</v-btn>
-                <v-btn color="primary">Reservation</v-btn>
+              <v-btn color="primary">Dine-In</v-btn>
+              <v-btn color="primary">Take Away</v-btn>
+              <v-btn color="primary">Delivery</v-btn>
+              <v-btn color="primary">Reservation</v-btn>
             </v-row>
-            <v-row class="my-6">
-            <v-col sm="5">
-              <p class="white--text ml-7 mr-5">Item</p>
-            </v-col>
-            <v-col sm="3">
-              <p class="white--text ml-5 mr-8 text-center">Qty</p>
-            </v-col>
-            <v-col sm="3">
-              <p class="white--text">Price</p>
-            </v-col>
-            </v-row>
-            <v-flex>
+            <v-flex class="my-10">
               <v-row v-for="item in items" :key="item.menu_id" no-gutters>
-              <v-col sm="2" class="mx-1">
-                <v-img :src="item.image" class="rounded-circle" max-width="55px" max-height="55px" />
-              </v-col>
                 <v-col sm="4" class="mx-auto">
-                 <p class="white--text">{{ item.name }}</p>
+                  <p class="white--text">{{ item.name }}</p>
                   <p class="white--text">Rp{{ item.price }}</p>
                 </v-col>
-                <v-col sm="1">
-                  <div color="base">
+                <v-col sm="6">
+                  <v-img :src="item.image" class="rounded-lg mx-auto my-3" max-width="75px" max-height="70px"/>
+                  <v-row class="justify-space-between my-3">
+                  <v-btn color="base">
+                  <v-icon color="primary">{{ svgPath }}</v-icon>
+                  </v-btn>
+                   <div color="base">
                     <p class="white--text text-center card-cart">1</p>
                   </div>
-                </v-col>
-                <v-col sm="2">
-                  <p class="white--text mx-4">Rp20000</p>
-                </v-col>
-                <v-col sm="2" class="mx-auto">
-                  <v-img :src="trash" max-width="50%" max-height="50px" class="mx-auto"/>
+                  <v-btn color="base">
+                  <v-icon>mdi-minus</v-icon>
+                  </v-btn>
+                  </v-row>
                 </v-col>
               </v-row>
               <v-row class="justify-space-between mx-4">
@@ -87,8 +76,10 @@
 </template>
 <script>
 import axios from 'axios'
+import { plus } from '@mdi/js'
 import image from '@/assets/image/nasi-goreng-jawa.jpeg'
 import trash from '@/assets/image/Button.png'
+import minus from '@/assets/image/minus-small.svg'
 
 export default {
   data() {
@@ -96,6 +87,9 @@ export default {
       items: [],
       image,
       trash,
+      plus,
+      minus,
+      svgPath: plus,
     }
   },
 
@@ -139,8 +133,8 @@ export default {
 }
 .card-cart {
   border: 1px solid #393c49;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -148,14 +142,17 @@ export default {
   margin: auto;
   mx: 5px;
 }
-.trash-image{
+.trash-image {
   align-items: center;
   justify-content: center;
 }
 .text-card {
- white-space: nowrap ;
+  white-space: nowrap;
   word-break: normal;
-    overflow: hidden ;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.minus-icon{
+color: #EA7C69;
 }
 </style>

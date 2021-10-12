@@ -37,52 +37,70 @@
         <v-col :style="{ background: $vuetify.theme.themes.light.base }" md="5">
           <v-col class="pt-10">
             <p class="display-1 white--text">Orders #34562</p>
-            <v-row class="button-group">
-              <v-btn color="primary">Dine-In</v-btn>
-              <v-btn color="primary">Take Away</v-btn>
-              <v-btn color="primary">Delivery</v-btn>
-              <v-btn color="primary">Reservation</v-btn>
-            </v-row>
-            <v-flex class="my-10">
-              <v-row v-for="item in items" :key="item.menu_id" dense>
-                <v-col md="6" sm="2" class="mx-auto">
-                  <p class="white--text">{{ item.name }}</p>
-                  <p class="white--text">Rp{{ item.price }}</p>
-                </v-col>
-                <v-col md="6" sm="3">
-                  <v-img
-                    :src="item.image"
-                    class="rounded-lg mx-auto my-2"
-                    max-width="150px"
-                    max-height="100px"
-                  />
-                  <v-row class="my-3 justify-sapce-between button-cart" md="6" sm="3">
-                    <v-col md="2" sm="1">
-                        <v-icon color="primary">{{ mdiPlus }}</v-icon>
+            <v-dialog color="#1F1D2B" v-model="dialog" width="500">
+              <template v-slot:activator="{ on, attrs }">
+                <v-row class="button-group">
+                  <v-btn color="primary" v-bind="attrs" v-on="on"
+                    >Dine-In</v-btn
+                  >
+                  <v-btn color="primary" v-bind="attrs" v-on="on"
+                    >Take Away</v-btn
+                  >
+                  <v-btn color="primary" v-bind="attrs" v-on="on"
+                    >Delivery</v-btn
+                  >
+                  <v-btn color="primary" v-bind="attrs" v-on="on"
+                    >Reservation</v-btn
+                  >
+                </v-row>
+              </template>
+              <v-card color="base" class="pa-6">
+                <v-flex class="my-10">
+                  <v-row v-for="item in items" :key="item.menu_id" dense>
+                    <v-col md="6" sm="2" class="mx-auto">
+                      <p class="white--text">{{ item.name }}</p>
+                      <p class="white--text">Rp{{ item.price }}</p>
                     </v-col>
-                    <v-col md="2" sm="1">
-                      <div color="base">
-                        <p class="white--text text-center card-cart">1</p>
-                      </div>
-                    </v-col>
-                    <v-col md="2" sm="1">
-                        <v-icon color="primary">{{ mdiMinus }}</v-icon>
+                    <v-col md="6" sm="3">
+                      <v-img
+                        :src="item.image"
+                        class="rounded-lg mx-auto my-2"
+                        max-width="150px"
+                        max-height="100px"
+                      />
+                      <v-row
+                        class="my-3 justify-sapce-between button-cart"
+                        md="6"
+                        sm="3"
+                      >
+                        <v-col md="2" sm="1">
+                          <v-icon color="primary">{{ mdiPlus }}</v-icon>
+                        </v-col>
+                        <v-col md="2" sm="1">
+                          <div color="base">
+                            <p class="white--text text-center card-cart">1</p>
+                          </div>
+                        </v-col>
+                        <v-col md="2" sm="1">
+                          <v-icon color="primary">{{ mdiMinus }}</v-icon>
+                        </v-col>
+                      </v-row>
                     </v-col>
                   </v-row>
-                </v-col>
-              </v-row>
-              <v-row class="justify-space-between mx-4">
-                <p>Discount</p>
-                <p>0</p>
-              </v-row>
-              <v-row class="justify-space-between mx-4">
-                <p>Sub Total</p>
-                <p>0</p>
-              </v-row>
-              <v-btn color="primary" class="my-10 button-order" block>
-                Confirm Order
-              </v-btn>
-            </v-flex>
+                  <v-row class="justify-space-between mx-4">
+                    <p>Discount</p>
+                    <p>0</p>
+                  </v-row>
+                  <v-row class="justify-space-between mx-4">
+                    <p>Sub Total</p>
+                    <p>0</p>
+                  </v-row>
+                  <v-btn color="primary" class="my-10 button-order" block>
+                    Confirm Order
+                  </v-btn>
+                </v-flex>
+              </v-card>
+            </v-dialog>
           </v-col>
         </v-col>
       </v-row>

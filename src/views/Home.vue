@@ -2,13 +2,19 @@
   <div>
     <v-layout fill-width>
       <v-row class="max-width-full">
-        <v-col :style="{ background: $vuetify.theme.themes.light.black }" md="7" class="pa-10">
+        <v-col
+          :style="{ background: $vuetify.theme.themes.light.black }"
+          md="7"
+          class="pa-10"
+        >
           <v-row>
-            <p class="display-1 white--text text--darken-2">Nasi Campur Mang ADE</p>
+            <p class="display-1 white--text text--darken-2">
+              Nasi Campur Mang ADE
+            </p>
             <v-text-field placeholder="Search"></v-text-field>
           </v-row>
           <p class="white--text text--darken-2">di rumah aja</p>
-          <p class="white--text text--darken-2">Wed Oct 06 2021</p>
+          <p class="white--text text--darken-2">{{ this.getDate }}</p>
           <v-row mx="4">
             <v-col md="4" sm="1" v-for="item in items" :key="item.menu_id">
               <v-card class="px-5 pb-5 pt-2" color="base">
@@ -18,7 +24,9 @@
                   width="200px"
                   height="200px"
                 />
-                <p class="white--text text--darken-2 font-weight-bold">{{ item.name }}</p>
+                <p class="white--text text--darken-2 font-weight-bold">
+                  {{ item.name }}
+                </p>
                 <p class="white--text text--darken-2">Rp{{ item.price }}</p>
                 <p class="white--text text--darken-2">{{ item.description }}</p>
                 <v-btn color="primary" block>Add</v-btn>
@@ -36,23 +44,30 @@
               <v-btn color="primary">Reservation</v-btn>
             </v-row>
             <v-flex class="my-10">
-              <v-row v-for="item in items" :key="item.menu_id" no-gutters>
-                <v-col sm="4" class="mx-auto">
+              <v-row v-for="item in items" :key="item.menu_id" dense>
+                <v-col sm="2" class="mx-auto">
                   <p class="white--text">{{ item.name }}</p>
                   <p class="white--text">Rp{{ item.price }}</p>
                 </v-col>
-                <v-col sm="6">
-                  <v-img :src="item.image" class="rounded-lg mx-auto my-3" max-width="75px" max-height="70px"/>
-                  <v-row class="justify-space-between my-3">
-                  <v-btn color="base">
-                  <v-icon color="primary">{{ svgPath }}</v-icon>
-                  </v-btn>
-                   <div color="base">
-                    <p class="white--text text-center card-cart">1</p>
-                  </div>
-                  <v-btn color="base">
-                  <v-icon>mdi-minus</v-icon>
-                  </v-btn>
+                <v-col sm="3">
+                  <v-img
+                    :src="item.image"
+                    class="rounded-lg mx-auto my-2"
+                    max-width="150px"
+                    max-height="100px"
+                  />
+                  <v-row class="my-3" md="3">
+                    <v-col md="1" sm="1">
+                        <v-icon color="primary">{{ mdiPlus }}</v-icon>
+                    </v-col>
+                    <v-col md="1" sm="1">
+                      <div color="base">
+                        <p class="white--text text-center card-cart">1</p>
+                      </div>
+                    </v-col>
+                    <v-col md="1" sm="1">
+                        <v-icon color="primary">{{ mdiMinus }}</v-icon>
+                    </v-col>
                   </v-row>
                 </v-col>
               </v-row>
@@ -76,7 +91,7 @@
 </template>
 <script>
 import axios from 'axios'
-import { plus } from '@mdi/js'
+import { mdiPlus, mdiMinus } from '@mdi/js'
 import image from '@/assets/image/nasi-goreng-jawa.jpeg'
 import trash from '@/assets/image/Button.png'
 import minus from '@/assets/image/minus-small.svg'
@@ -87,9 +102,9 @@ export default {
       items: [],
       image,
       trash,
-      plus,
       minus,
-      svgPath: plus,
+      mdiPlus,
+      mdiMinus,
     }
   },
 
@@ -99,9 +114,14 @@ export default {
 
   methods: {
     async getData() {
-      axios.get('https://wa-link.deploy.cbs.co.id/shop_data/SN4TCROYT-OE4QB').then(res => {
-        this.items = res.data.data.shop_data.menu
-      })
+      axios
+        .get('https://wa-link.deploy.cbs.co.id/shop_data/SN4TCROYT-OE4QB')
+        .then(res => {
+          this.items = res.data.data.shop_data.menu
+        })
+    },
+    getDate() {
+      Date.now()
     },
   },
 }
@@ -131,6 +151,9 @@ export default {
 .button-order {
   min-width: 100%;
 }
+.button-cart {
+  border: 2px solid #EA7C69;
+}
 .card-cart {
   border: 1px solid #393c49;
   width: 30px;
@@ -140,7 +163,6 @@ export default {
   align-items: center;
   justify-content: center;
   margin: auto;
-  mx: 5px;
 }
 .trash-image {
   align-items: center;
@@ -152,7 +174,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.minus-icon{
-color: #EA7C69;
+.minus-icon {
+  color: #ea7c69;
 }
 </style>

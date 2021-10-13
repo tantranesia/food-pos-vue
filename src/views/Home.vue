@@ -11,6 +11,8 @@
             <p class="display-1 white--text text--darken-2">
               {{ name }}
             </p>
+                          <h1>{{ screenSize }}</h1>
+
             <v-text-field placeholder="Search"></v-text-field>
           </v-row>
           <p class="white--text text--darken-2">
@@ -57,7 +59,7 @@
           </v-row>
         </v-col>
         <v-col
-          v-if="isMini()"
+        v-if="screenSize"
           :style="{ background: $vuetify.theme.themes.light.base }"
           md="5"
         >
@@ -74,6 +76,9 @@
                     <p class="base--text">
                       1 Item
                     </p>
+                    <pre>
+                      {{ screenSize }}
+                    </pre>
                   </v-col>
                   <v-col class="base--text">
                     <p>Rp35000</p>
@@ -185,11 +190,11 @@
           </v-dialog>
         </v-col>
         <v-col
-          v-else
+          v-if="!screenSize"
           :style="{ background: $vuetify.theme.themes.light.base }"
           md="5"
         >
-          <Cart />
+          <Cart :cartItems="cartItems" />
         </v-col>
       </v-row>
     </v-layout>
@@ -221,7 +226,11 @@ export default {
       name: '',
     }
   },
-
+  computed: {
+    screenSize() {
+      return this.isMini()
+    },
+  },
   mounted() {
     this.getData()
     this.getDate()
@@ -255,6 +264,7 @@ export default {
       console.log(exist, 'cek')
     },
     isMini() {
+      console.log('test')
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
           return true

@@ -57,10 +57,10 @@
           </v-row>
         </v-col>
         <v-col
+          v-if="isMini()"
           :style="{ background: $vuetify.theme.themes.light.base }"
           md="5"
         >
-          <Cart />
           <v-dialog transition="dialog-bottom-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -184,6 +184,13 @@
             </template>
           </v-dialog>
         </v-col>
+        <v-col
+          v-else
+          :style="{ background: $vuetify.theme.themes.light.base }"
+          md="5"
+        >
+          <Cart />
+        </v-col>
       </v-row>
     </v-layout>
   </div>
@@ -219,6 +226,7 @@ export default {
     this.getData()
     this.getDate()
     this.onAdd()
+    this.isMini()
   },
 
   methods: {

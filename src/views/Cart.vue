@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row color="base">
     <v-col class="pt-10">
       <p class="display-1 white--text">Orders #34562</p>
       <v-row class="button-group">

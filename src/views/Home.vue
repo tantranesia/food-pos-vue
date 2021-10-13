@@ -11,8 +11,6 @@
             <p class="display-1 white--text text--darken-2">
               {{ name }}
             </p>
-                          <h1>{{ screenSize }}</h1>
-
             <v-text-field placeholder="Search"></v-text-field>
           </v-row>
           <p class="white--text text--darken-2">
@@ -76,9 +74,6 @@
                     <p class="base--text">
                       1 Item
                     </p>
-                    <pre>
-                      {{ screenSize }}
-                    </pre>
                   </v-col>
                   <v-col class="base--text">
                     <p>Rp35000</p>

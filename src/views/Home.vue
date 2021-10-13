@@ -5,21 +5,29 @@
         <v-col
           :style="{ background: $vuetify.theme.themes.light.black }"
           md="7"
-          class="pa-10"
+          sm="4"
+          class="py-10 px-5"
         >
           <v-row>
-            <p class="display-1 white--text text--darken-2">
+            <p class="display-1 white--text text--darken-2 mx-5">
               {{ name }}
             </p>
             <v-text-field placeholder="Search"></v-text-field>
           </v-row>
-          <p class="white--text text--darken-2">
+          <p class="white--text text--darken-2 mx-5">
             {{ address }}
           </p>
-          <p class="white--text text--darken-2">
+          <p class="white--text text--darken-2 mx-5">
             {{ dateNow }}
           </p>
-          <v-row mx="4">
+           <v-col
+              v-if="screenSize"
+              mx="0"
+            >
+              <HomeMobile :items-mobile="itemsMobile" />
+            </v-col>
+
+          <v-row mx="4" v-else>
             <v-col
               v-for="item in items"
               :key="item.menu_id"
@@ -33,10 +41,13 @@
                 <v-img
                   :src="item.image"
                   class="mx-auto rounded-lg my-2"
-                  width="200px"
-                  height="200px"
+                  max-width="200px"
+                  min-height="100px"
+                  max-height="150px"
                 />
-                <p class="white--text text--darken-2 font-weight-bold">
+                <p
+                  class="white--text text--darken-2 font-weight-bold"
+                >
                   {{ item.name }}
                 </p>
                 <p class="white--text text--darken-2">
@@ -57,17 +68,19 @@
           </v-row>
         </v-col>
         <v-col
-        v-if="screenSize"
+          v-if="screenSize"
           :style="{ background: $vuetify.theme.themes.light.base }"
           md="5"
         >
           <v-dialog transition="dialog-bottom-transition">
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                block
                 color="primary"
                 v-bind="attrs"
+                rounded
+                class="button-total"
                 v-on="on"
+                block
               >
                 <v-row>
                   <v-col>
@@ -173,7 +186,7 @@
                     </v-row>
                     <v-btn
                       color="primary"
-                      class="my-10 button-order"
+                      class="my-10"
                       block
                     >
                       Confirm Order
@@ -189,7 +202,7 @@
           :style="{ background: $vuetify.theme.themes.light.base }"
           md="5"
         >
-          <Cart :cartItems="cartItems" />
+          <Cart :cart-items="cartItems" />
         </v-col>
       </v-row>
     </v-layout>
@@ -202,14 +215,17 @@ import image from '@/assets/image/nasi-goreng-jawa.jpeg'
 import trash from '@/assets/image/Button.png'
 import minus from '@/assets/image/minus-small.svg'
 import Cart from './Cart.vue'
+import HomeMobile from './HomeMobile.vue'
 
 export default {
   components: {
     Cart,
+    HomeMobile,
   },
   data() {
     return {
       items: [],
+      itemsMobile: [],
       cartItems: [],
       image,
       trash,
@@ -241,6 +257,7 @@ export default {
           this.items = res.data.data.shop_data.menu
           this.address = res.data.data.shop_data.alamat
           this.name = res.data.data.shop_data.name
+          this.itemsMobile = res.data.data.shop_data.menu
         })
     },
     getDate() {
@@ -248,7 +265,9 @@ export default {
       this.dateNow = timelaps.toDateString()
     },
     onAdd(product) {
-      const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
+      const exist = this.cartItems.includes(
+        x => x.menu_id === product.menu_id,
+      )
       if (exist) {
         this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
           ? { ...exist, category: exist.category + 1 }
@@ -300,8 +319,12 @@ export default {
   height: 60px;
   min-width: 0%;
 }
-.button-order {
-  min-width: 100%;
+.button-total {
+  justify-content: space-between;
+  align-items: center;
+}
+.text-cart {
+  font-size: 12px;
 }
 .button-cart {
   align-items: center;
@@ -326,8 +349,5 @@ export default {
   word-break: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.minus-icon {
-  color: #ea7c69;
 }
 </style>

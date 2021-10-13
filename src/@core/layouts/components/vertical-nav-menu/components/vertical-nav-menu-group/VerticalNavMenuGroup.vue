@@ -39,7 +39,12 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { computed, inject, ref, watch } from '@vue/composition-api'
+import {
+  computed,
+  inject,
+  ref,
+  watch,
+} from '@vue/composition-api'
 
 // SFCs
 import VerticalNavMenuSectionTitle from '@core/layouts/components/vertical-nav-menu/components/vertical-nav-menu-section-title/VerticalNavMenuSectionTitle.vue'

@@ -86,7 +86,13 @@
 <script>
 import { ref } from '@vue/composition-api'
 // eslint-disable-next-line object-curly-newline
-import { mdiCodeTags, mdiLanguageJavascript, mdiLanguageTypescript, mdiContentCopy, mdiCheck } from '@mdi/js'
+import {
+  mdiCodeTags,
+  mdiLanguageJavascript,
+  mdiLanguageTypescript,
+  mdiContentCopy,
+  mdiCheck,
+} from '@mdi/js'
 import { useClipboard } from '@vueuse/core'
 
 // PrismJS

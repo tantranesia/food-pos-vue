@@ -69,7 +69,13 @@ export default {
           endingShape: 'rounded',
           distributed: true,
           colors: {
-            backgroundBarColors: ['#5e566914', '#5e566914', '#5e566914', '#5e566914', '#5e566914'],
+            backgroundBarColors: [
+              '#5e566914',
+              '#5e566914',
+              '#5e566914',
+              '#5e566914',
+              '#5e566914',
+            ],
             backgroundBarRadius: 5,
           },
         },

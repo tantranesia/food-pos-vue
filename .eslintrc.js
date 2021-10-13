@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   extends: [
-    'plugin:es-beautifier/standard',
+    'eslint:recommended',
     'plugin:vue/recommended',
     '@vue/airbnb',
   ],

@@ -1,5 +1,10 @@
 // eslint-disable-next-line object-curly-newline
-import { getCurrentInstance, reactive, toRefs, watch } from '@vue/composition-api'
+import {
+  getCurrentInstance,
+  reactive,
+  toRefs,
+  watch,
+} from '@vue/composition-api'
 
 export const isObject = obj => typeof obj === 'object' && obj !== null
 

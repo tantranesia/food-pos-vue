@@ -52,10 +52,22 @@ import HorizontalNavMenuLink from '@core/layouts/components/horizontal-nav-menu/
 // import useHorizontalNavMenu from '@core/layouts/composable/horizontal-nav/useHorizontalNavMenu'
 
 // eslint-disable-next-line object-curly-newline
-import { ref, computed, inject, watchEffect, nextTick, watch } from '@vue/composition-api'
+import {
+  ref,
+  computed,
+  inject,
+  watchEffect,
+  nextTick,
+  watch,
+} from '@vue/composition-api'
 import { mdiChevronRight } from '@mdi/js'
 // eslint-disable-next-line object-curly-newline
-import { useMouseInElement, until, useWindowSize, invoke } from '@vueuse/core'
+import {
+  useMouseInElement,
+  until,
+  useWindowSize,
+  invoke,
+} from '@vueuse/core'
 import { useUtils } from '@core/libs/i18n'
 import { useUtils as useAclUtils } from '@core/libs/acl'
 import themeConfig from '@themeConfig'
@@ -133,7 +145,14 @@ export default {
         })
       })
     }
-    watch([width, height], updateMenuDropLeft, { immediate: true, flush: 'post', deep: true })
+    watch([
+      width,
+      height,
+    ], updateMenuDropLeft, {
+      immediate: true,
+      flush: 'post',
+      deep: true,
+    })
 
     const contentClasses = computed(() => {
       const classes = ['list-style', 'elevation-8']

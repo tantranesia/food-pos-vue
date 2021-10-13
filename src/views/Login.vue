@@ -174,7 +174,14 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
+import {
+  mdiFacebook,
+  mdiTwitter,
+  mdiGithub,
+  mdiGoogle,
+  mdiEyeOutline,
+  mdiEyeOffOutline,
+} from '@mdi/js'
 import { ref } from '@vue/composition-api'
 import themeConfig from '@themeConfig'
 

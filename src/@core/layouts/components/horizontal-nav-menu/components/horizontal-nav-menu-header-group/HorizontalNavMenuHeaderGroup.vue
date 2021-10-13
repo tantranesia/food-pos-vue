@@ -54,7 +54,12 @@
 
 <script>
 // eslint-disable-next-line object-curly-newline
-import { computed, provide, ref, watchEffect } from '@vue/composition-api'
+import {
+  computed,
+  provide,
+  ref,
+  watchEffect,
+} from '@vue/composition-api'
 import { mdiChevronDown } from '@mdi/js'
 import { useMouseInElement } from '@vueuse/core'
 

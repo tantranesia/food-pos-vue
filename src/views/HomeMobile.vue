@@ -4,7 +4,7 @@
     position="relative"
   >
     <v-row>
-      <p class="display-1 white--text text--darken-2 mx-5">
+      <p class="display-1 white--text text--darken-2 mx-5 mt-10">
         {{ name }}
       </p>
       <v-text-field placeholder="Search"></v-text-field>
@@ -55,6 +55,7 @@
               color="primary"
               rounded
               @click="onAdd()"
+              class="ml-12 mb-8"
             >
               Add
             </v-btn>
@@ -78,11 +79,11 @@
           >
             <v-row>
               <v-col>
-                <p class="base--text">
+                <p class="base--text mt-3 font-weight-bold">
                   1 Item
                 </p>
               </v-col>
-              <v-col class="base--text">
+              <v-col class="base--text mt-3 font-weight-bold">
                 <p>Rp35000</p>
               </v-col>
             </v-row>

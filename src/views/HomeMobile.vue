@@ -264,7 +264,7 @@ export default {
 .button-total {
     position: fixed;
     bottom: 0;
-    width: 80%;
+    width: 90%;
     margin-bottom: 25px ;
 }
 </style>

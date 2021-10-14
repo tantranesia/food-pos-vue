@@ -1,7 +1,18 @@
 <template>
   <div>
     <v-layout fill-width>
-      <v-row class="max-width-full">
+      <HomeMobile
+        v-if="screenSize"
+        :items-mobile="itemsMobile"
+        :address="address"
+        :date-now="dateNow"
+        :name="name"
+        :items="items"
+      />
+      <v-row
+        v-else
+        class="max-width-full"
+      >
         <v-col
           :style="{ background: $vuetify.theme.themes.light.black }"
           md="7"
@@ -20,183 +31,53 @@
           <p class="white--text text--darken-2 mx-5">
             {{ dateNow }}
           </p>
-           <v-col
-              v-if="screenSize"
-              mx="0"
+          <v-row
+            mx="4"
+          >
+            <v-row
+              mx="4"
             >
-              <HomeMobile :items-mobile="itemsMobile" />
-            </v-col>
-
-          <v-row mx="4" v-else>
-            <v-col
-              v-for="item in items"
-              :key="item.menu_id"
-              md="4"
-              sm="1"
-            >
-              <v-card
-                class="px-5 pb-5 pt-2"
-                color="base"
+              <v-col
+                v-for="item in items"
+                :key="item.menu_id"
+                md="4"
+                sm="1"
               >
-                <v-img
-                  :src="item.image"
-                  class="mx-auto rounded-lg my-2"
-                  max-width="200px"
-                  min-height="100px"
-                  max-height="150px"
-                />
-                <p
-                  class="white--text text--darken-2 font-weight-bold"
+                <v-card
+                  class="px-5 pb-5 pt-2"
+                  color="base"
                 >
-                  {{ item.name }}
-                </p>
-                <p class="white--text text--darken-2">
-                  Rp{{ item.price }}
-                </p>
-                <p class="white--text text--darken-2">
-                  {{ item.description }}
-                </p>
-                <v-btn
-                  color="primary"
-                  block
-                  @click="onAdd()"
-                >
-                  Add
-                </v-btn>
-              </v-card>
-            </v-col>
+                  <v-img
+                    :src="item.image"
+                    class="mx-auto rounded-lg my-2"
+                    max-width="200px"
+                    min-height="100px"
+                    max-height="150px"
+                  />
+                  <p
+                    class="white--text text--darken-2 font-weight-bold"
+                  >
+                    {{ item.name }}
+                  </p>
+                  <p class="white--text text--darken-2">
+                    Rp{{ item.price }}
+                  </p>
+                  <p class="white--text text--darken-2">
+                    {{ item.description }}
+                  </p>
+                  <v-btn
+                    color="primary"
+                    block
+                    @click="onAdd()"
+                  >
+                    Add
+                  </v-btn>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-row>
         </v-col>
-        <v-col
-          v-if="screenSize"
-          :style="{ background: $vuetify.theme.themes.light.base }"
-          md="5"
-        >
-          <v-dialog transition="dialog-bottom-transition">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                v-bind="attrs"
-                rounded
-                class="button-total"
-                v-on="on"
-                block
-              >
-                <v-row>
-                  <v-col>
-                    <p class="base--text">
-                      1 Item
-                    </p>
-                  </v-col>
-                  <v-col class="base--text">
-                    <p>Rp35000</p>
-                  </v-col>
-                </v-row>
-              </v-btn>
-            </template>
-            <template>
-              <v-card color="base">
-                <v-col class="pt-10">
-                  <p class="display-1 white--text">
-                    Orders #34562
-                  </p>
-                  <v-row class="button-group">
-                    <v-chip color="primary">
-                      Dine-In
-                    </v-chip>
-                    <v-chip color="primary">
-                      Take Away
-                    </v-chip>
-                    <v-chip color="primary">
-                      Delivery
-                    </v-chip>
-                    <v-chip color="primary">
-                      Reservation
-                    </v-chip>
-                  </v-row>
-                  <v-flex class="my-10">
-                    <v-row
-                      v-for="item in items"
-                      :key="item.menu_id"
-                      dense
-                    >
-                      <v-col
-                        md="6"
-                        sm="2"
-                        class="mx-auto"
-                      >
-                        <p class="white--text">
-                          {{ item.name }}
-                        </p>
-                        <p class="white--text">
-                          Rp{{ item.price }}
-                        </p>
-                      </v-col>
-                      <v-col
-                        md="6"
-                        sm="3"
-                      >
-                        <v-img
-                          :src="item.image"
-                          class="rounded-lg mx-auto my-2"
-                          max-width="150px"
-                          max-height="100px"
-                        />
-                        <v-row
-                          class="my-3 justify-sapce-between button-cart"
-                          md="6"
-                          sm="3"
-                        >
-                          <v-col
-                            md="2"
-                            sm="1"
-                          >
-                            <v-icon color="primary">
-                              {{ mdiPlus }}
-                            </v-icon>
-                          </v-col>
-                          <v-col
-                            md="2"
-                            sm="1"
-                          >
-                            <div color="base">
-                              <p class="white--text text-center card-cart">
-                                1
-                              </p>
-                            </div>
-                          </v-col>
-                          <v-col
-                            md="2"
-                            sm="1"
-                          >
-                            <v-icon color="primary">
-                              {{ mdiMinus }}
-                            </v-icon>
-                          </v-col>
-                        </v-row>
-                      </v-col>
-                    </v-row>
-                    <v-row class="justify-space-between mx-4">
-                      <p>Discount</p>
-                      <p>0</p>
-                    </v-row>
-                    <v-row class="justify-space-between mx-4">
-                      <p>Sub Total</p>
-                      <p>0</p>
-                    </v-row>
-                    <v-btn
-                      color="primary"
-                      class="my-10"
-                      block
-                    >
-                      Confirm Order
-                    </v-btn>
-                  </v-flex>
-                </v-col>
-              </v-card>
-            </template>
-          </v-dialog>
-        </v-col>
+
         <v-col
           v-if="!screenSize"
           :style="{ background: $vuetify.theme.themes.light.base }"
@@ -318,10 +199,6 @@ export default {
   width: 15%;
   height: 60px;
   min-width: 0%;
-}
-.button-total {
-  justify-content: space-between;
-  align-items: center;
 }
 .text-cart {
   font-size: 12px;

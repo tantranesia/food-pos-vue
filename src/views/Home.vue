@@ -31,12 +31,8 @@
           <p class="white--text text--darken-2 mx-5">
             {{ dateNow }}
           </p>
-          <v-row
-            mx="4"
-          >
-            <v-row
-              mx="4"
-            >
+          <v-row mx="4">
+            <v-row mx="4">
               <v-col
                 v-for="item in items"
                 :key="item.menu_id"
@@ -54,9 +50,7 @@
                     min-height="100px"
                     max-height="150px"
                   />
-                  <p
-                    class="white--text text--darken-2 font-weight-bold"
-                  >
+                  <p class="white--text text--darken-2 font-weight-bold">
                     {{ item.name }}
                   </p>
                   <p class="white--text text--darken-2">
@@ -68,7 +62,7 @@
                   <v-btn
                     color="primary"
                     block
-                    @click="onAdd()"
+                    @click="onAdd(item)"
                   >
                     Add
                   </v-btn>
@@ -116,6 +110,7 @@ export default {
       dateNow: '',
       address: '',
       name: '',
+      id: 0,
     }
   },
   computed: {
@@ -145,16 +140,27 @@ export default {
       const timelaps = new Date()
       this.dateNow = timelaps.toDateString()
     },
+    // eslint-disable-next-line consistent-return
     onAdd(product) {
-      const exist = this.cartItems.includes(
-        x => x.menu_id === product.menu_id,
-      )
+      if (this.cartItems.length <= 1) {
+        this.cartItems.push({
+          category: product.category,
+          menu_id: product.menu_id,
+          image: product.image,
+          name: product.name,
+          price: product.price,
+        })
+      }
+
+      console.log('lah', product)
+
+      const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
       if (exist) {
         this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
           ? { ...exist, category: exist.category + 1 }
           : x))
       } else {
-        this.cartItems = [...this.cartItems, { ...product, category: 1 }]
+        this.cartItems = [...exist, { ...product, category: 1 }]
       }
       console.log(exist, 'cek')
     },
@@ -185,11 +191,6 @@ export default {
 }
 .card-home {
   position: relative;
-}
-.button-group {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
 }
 .card-image {
   width: 15%;

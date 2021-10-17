@@ -1,5 +1,7 @@
 <template>
-  <v-row color="base">
+  <v-row
+    color="base"
+  >
     <v-col class="pt-10">
       <p class="display-1 white--text">
         Orders #34562
@@ -30,7 +32,9 @@
           Reservation
         </v-chip>
       </v-row>
-      <v-flex class="my-10">
+      <v-flex
+        class="my-10"
+      >
         <v-row
           v-for="item in cartItems"
           :key="item.menu_id"
@@ -42,7 +46,7 @@
             class="mx-auto"
           >
             <p class="white--text">
-              {{ cartItems.name }}
+              {{ item.name }}
             </p>
             <p class="white--text">
               Rp{{ item.price }}
@@ -112,6 +116,8 @@
   </v-row>
 </template>
 <script>
+import { mdiPlus, mdiMinus } from '@mdi/js'
+
 export default {
   name: 'Cart',
   props: {
@@ -120,10 +126,17 @@ export default {
       required: true,
     },
   },
-  data() {},
+  data() {
+    console.log(this.cartItems, 'cek di cart')
+
+    return {
+      mdiPlus,
+      mdiMinus,
+    }
+  },
   methods: {
     itemsDetails() {
-      const detail = this.cartItems
+      const detail = this.result
       console.log(detail, 'cek detail ni mas')
     },
 

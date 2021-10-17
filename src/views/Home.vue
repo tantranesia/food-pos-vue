@@ -23,7 +23,10 @@
             <p class="display-1 white--text text--darken-2 mx-5">
               {{ name }}
             </p>
-            <v-text-field placeholder="Search"></v-text-field>
+            <v-text-field
+              v-model="search"
+              placeholder="Search"
+            ></v-text-field>
           </v-row>
           <p class="white--text text--darken-2 mx-5">
             {{ address }}
@@ -34,7 +37,7 @@
           <v-row mx="4">
             <v-row mx="4">
               <v-col
-                v-for="item in items"
+                v-for="item in getSearch"
                 :key="item.menu_id"
                 md="4"
                 sm="1"
@@ -77,7 +80,9 @@
           :style="{ background: $vuetify.theme.themes.light.base }"
           md="5"
         >
-          <Cart :cart-items="cartItems" />
+          <Cart
+            :cart-items="cartItems"
+          />
         </v-col>
       </v-row>
     </v-layout>
@@ -102,6 +107,8 @@ export default {
       items: [],
       itemsMobile: [],
       cartItems: [],
+      searchResult: null,
+      search: '',
       image,
       trash,
       minus,
@@ -114,6 +121,9 @@ export default {
     }
   },
   computed: {
+    getSearch() {
+      return this.items.filter(detail => detail.name.toLowerCase().includes(this.search.toLowerCase()))
+    },
     screenSize() {
       return this.isMini()
     },
@@ -123,8 +133,8 @@ export default {
     this.getDate()
     this.onAdd()
     this.isMini()
+    this.getSearch()
   },
-
   methods: {
     async getData() {
       axios
@@ -141,7 +151,7 @@ export default {
       this.dateNow = timelaps.toDateString()
     },
     // eslint-disable-next-line consistent-return
-    onAdd(product) {
+    async onAdd(product) {
       if (this.cartItems.length <= 1) {
         this.cartItems.push({
           category: product.category,
@@ -152,17 +162,20 @@ export default {
         })
       }
 
-      console.log('lah', product)
+      // this.result = await JSON.parse(JSON.stringify(this.cartItems))
 
-      const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
-      if (exist) {
-        this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
-          ? { ...exist, category: exist.category + 1 }
-          : x))
-      } else {
-        this.cartItems = [...exist, { ...product, category: 1 }]
-      }
-      console.log(exist, 'cek')
+      console.log('lah', product)
+      console.log('cart items', this.cartItems)
+
+      // const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
+      // if (exist) {
+      //   this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
+      //     ? { ...exist, category: exist.category + 1 }
+      //     : x))
+      // } else {
+      //   this.cartItems = [...exist, { ...product, category: 1 }]
+      // }
+      // console.log(exist, 'cek')
     },
     isMini() {
       console.log('test')

@@ -54,8 +54,8 @@
             <v-btn
               color="primary"
               rounded
-              @click="onAdd()"
               class="ml-12 mb-8"
+              @click="onAdd()"
             >
               Add
             </v-btn>
@@ -222,6 +222,8 @@ export default {
     },
   },
   data() {
+    console.log(this.itemsMobile, 'cek item mobile')
+
     return {
       mdiPlus,
       mdiMinus,

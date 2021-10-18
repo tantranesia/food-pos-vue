@@ -71,17 +71,21 @@
                 md="2"
                 sm="1"
               >
-                <v-icon color="primary">
+                <v-icon
+                  color="primary"
+                  @click="increaseCounter(20)"
+                >
                   {{ mdiPlus }}
                 </v-icon>
               </v-col>
               <v-col
                 md="2"
                 sm="1"
+                class="mx-5"
               >
                 <div color="base">
                   <p class="white--text text-center card-cart">
-                    1
+                    {{ counter }}
                   </p>
                 </div>
               </v-col>
@@ -132,14 +136,14 @@ export default {
     return {
       mdiPlus,
       mdiMinus,
+      counter: 0,
     }
   },
   methods: {
-    itemsDetails() {
-      const detail = this.result
-      console.log(detail, 'cek detail ni mas')
+    increaseCounter(increaseLimit) {
+      // eslint-disable-next-line no-plusplus
+      if (this.counter < increaseLimit) this.counter++
     },
-
   },
 }
 </script>

@@ -83,7 +83,7 @@
             <v-row>
               <v-col>
                 <p class="base--text mt-3 font-weight-bold">
-                  {{ totalItems }}
+                  {{ totalItems }} Items
                 </p>
               </v-col>
               <v-col class="base--text mt-3 font-weight-bold">

@@ -1,3 +1,4 @@
+/* eslint-disable no-tabs */
 <template>
   <div>
     <v-layout fill-width>
@@ -118,6 +119,8 @@ export default {
       address: '',
       name: '',
       id: 0,
+      category: '',
+      menu_id: 0,
     }
   },
   computed: {
@@ -151,30 +154,18 @@ export default {
     },
     // eslint-disable-next-line consistent-return
     async onAdd(product) {
-      if (this.cartItems.length <= 1) {
-        this.cartItems.push({
+      if (this.cartItems.length <= this.items.length) {
+        await this.cartItems.push({
           category: product.category,
           menu_id: product.menu_id,
           image: product.image,
           name: product.name,
           price: product.price,
+          description: product.description,
         })
       }
 
-      // this.result = await JSON.parse(JSON.stringify(this.cartItems))
-
-      // console.log('lah', product)
-      // console.log('cart items', this.cartItems)
-
-      // const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
-      // if (exist) {
-      //   this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
-      //     ? { ...exist, category: exist.category + 1 }
-      //     : x))
-      // } else {
-      //   this.cartItems = [...exist, { ...product, category: 1 }]
-      // }
-      // console.log(exist, 'cek')
+      console.log('lah', product)
     },
     isMini() {
       switch (this.$vuetify.breakpoint.name) {

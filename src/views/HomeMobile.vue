@@ -7,7 +7,10 @@
       <p class="display-1 white--text text--darken-2 mx-5 mt-10">
         {{ name }}
       </p>
-      <v-text-field placeholder="Search"></v-text-field>
+      <v-text-field
+        v-model="search"
+        placeholder="Search"
+      ></v-text-field>
     </v-row>
     <p class="white--text text--darken-2 mx-5">
       {{ address }}
@@ -21,7 +24,7 @@
         class="pa-3 card-body"
       >
         <v-row
-          v-for="itemMobile in itemsMobile"
+          v-for="itemMobile in getSearch"
           :key="itemMobile.menu_id"
           dense
         >
@@ -55,7 +58,7 @@
               color="primary"
               rounded
               class="ml-12 mb-8"
-              @click="onAdd()"
+              @click="onAdd(itemMobile)"
             >
               Add
             </v-btn>
@@ -80,7 +83,7 @@
             <v-row>
               <v-col>
                 <p class="base--text mt-3 font-weight-bold">
-                  1 Item
+                  {{ totalItems }}
                 </p>
               </v-col>
               <v-col class="base--text mt-3 font-weight-bold">
@@ -111,7 +114,7 @@
               </v-row>
               <v-flex class="my-10">
                 <v-row
-                  v-for="item in items"
+                  v-for="item in cartItems"
                   :key="item.menu_id"
                   dense
                 >
@@ -222,21 +225,51 @@ export default {
     },
   },
   data() {
-    console.log(this.itemsMobile, 'cek item mobile')
-
     return {
       mdiPlus,
       mdiMinus,
+      search: '',
+      cartItems: [],
+      totalItems: 0,
     }
   },
   computed: {
+    getSearch() {
+      return this.itemsMobile.filter(detail => detail.name.toLowerCase().includes(this.search.toLowerCase()))
+    },
     screenSize() {
       return this.isMini()
     },
   },
   methods: {
+    async onAdd(product) {
+      if (this.cartItems.length <= 1) {
+        this.cartItems.push({
+          category: product.category,
+          menu_id: product.menu_id,
+          image: product.image,
+          name: product.name,
+          price: product.price,
+        })
+      }
+      this.totalItems = this.cartItems.length
+
+      // this.result = await JSON.parse(JSON.stringify(this.cartItems))
+
+      console.log('lah', product)
+      console.log('cart items', this.cartItems)
+
+      // const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
+      // if (exist) {
+      //   this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
+      //     ? { ...exist, category: exist.category + 1 }
+      //     : x))
+      // } else {
+      //   this.cartItems = [...exist, { ...product, category: 1 }]
+      // }
+      // console.log(exist, 'cek')
+    },
     async isMini() {
-      console.log('test')
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
           return true

@@ -133,7 +133,6 @@ export default {
     this.getDate()
     this.onAdd()
     this.isMini()
-    this.getSearch()
   },
   methods: {
     async getData() {
@@ -164,8 +163,8 @@ export default {
 
       // this.result = await JSON.parse(JSON.stringify(this.cartItems))
 
-      console.log('lah', product)
-      console.log('cart items', this.cartItems)
+      // console.log('lah', product)
+      // console.log('cart items', this.cartItems)
 
       // const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
       // if (exist) {
@@ -178,7 +177,6 @@ export default {
       // console.log(exist, 'cek')
     },
     isMini() {
-      console.log('test')
       switch (this.$vuetify.breakpoint.name) {
         case 'xs':
           return true

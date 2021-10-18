@@ -49,7 +49,7 @@
               {{ item.name }}
             </p>
             <p class="white--text">
-              Rp{{ item.price }}
+              Rp{{ item.price * counter }}
             </p>
           </v-col>
           <v-col
@@ -106,7 +106,7 @@
         </v-row>
         <v-row class="justify-space-between mx-4">
           <p>Sub Total</p>
-          <p>0</p>
+          <p>{{ subTotal }}</p>
         </v-row>
         <v-btn
           color="primary"
@@ -132,11 +132,14 @@ export default {
   },
   data() {
     console.log(this.cartItems, 'cek di cart')
+    this.subTotal = parseInt(this.counter * this.cartItems.price, 10)
+    console.log(this.subTotal)
 
     return {
       mdiPlus,
       mdiMinus,
       counter: 0,
+      subTotal: 0,
     }
   },
   methods: {

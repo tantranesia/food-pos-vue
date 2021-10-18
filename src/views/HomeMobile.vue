@@ -149,7 +149,10 @@
                         md="2"
                         sm="1"
                       >
-                        <v-icon color="primary">
+                        <v-icon
+                          color="primary"
+                          @click="increaseCounter(20)"
+                        >
                           {{ mdiPlus }}
                         </v-icon>
                       </v-col>
@@ -159,7 +162,7 @@
                       >
                         <div color="base">
                           <p class="white--text text-center card-cart">
-                            1
+                            {{ counter }}
                           </p>
                         </div>
                       </v-col>
@@ -231,6 +234,7 @@ export default {
       search: '',
       cartItems: [],
       totalItems: 0,
+      counter: 0,
     }
   },
   computed: {
@@ -242,8 +246,12 @@ export default {
     },
   },
   methods: {
+    increaseCounter(increaseLimit) {
+      // eslint-disable-next-line no-plusplus
+      if (this.counter < increaseLimit) this.counter++
+    },
     async onAdd(product) {
-      if (this.cartItems.length <= 1) {
+      if (this.cartItems.length <= this.items.length) {
         this.cartItems.push({
           category: product.category,
           menu_id: product.menu_id,

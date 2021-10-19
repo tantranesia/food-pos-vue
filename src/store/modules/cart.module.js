@@ -15,14 +15,12 @@ const cart = {
     setAddCartItem(state, payload) {
       state.cartItems.push(payload)
     },
-
   },
   actions: {
-
     addCartItem(context, payload) {
+      console.log('masuk sini harusnya')
       context.commit('setAddCartItem', payload)
     },
-
   },
   namespaced: true,
 }

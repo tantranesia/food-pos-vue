@@ -40,7 +40,7 @@
       </v-row>
       <v-flex class="my-10">
         <v-row
-          v-for="(item,index) in cartItems"
+          v-for="(item, index) in cartItems"
           :key="index"
           dense
         >
@@ -53,7 +53,7 @@
               {{ item.name }}
             </p>
             <p class="white--text">
-              Rp{{ item.price * counter }}
+              Rp{{ item.price * item.qty }}
             </p>
           </v-col>
           <v-col
@@ -81,7 +81,7 @@
                   color="primary"
                   @click="increaseItemQty(index)"
                 >
-                  mdi-plus
+                  mdi mdi-plus
                 </v-icon>
               </v-col>
               <v-col
@@ -103,7 +103,7 @@
                   color="primary"
                   @click="descreaseItemQty(index)"
                 >
-                  mdi-minus
+                  mdi mdi-minus
                 </v-icon>
               </v-col>
             </v-row>
@@ -133,26 +133,19 @@ export default {
     Reservation,
     TakeAway,
   },
-  props: {
-    cartItems: {
-      type: Array,
-      required: true,
-    },
-  },
+
   data() {
-    console.log(this.cartItems, 'cek di cart')
-    this.subTotal = parseInt(this.counter * this.cartItems.price, 10)
-    console.log(this.subTotal)
-    this.items = ['Dine-In', 'Take Away', 'Delivery', 'Reservation']
-    this.selected = this.id
-    console.log(this.selected)
+    // console.log(this.cartItems, 'cek di cart')
+    // this.subTotal = parseInt(this.counter * this.cartItems.price, 10)
+    // console.log(this.subTotal)
+    // this.items = this.selected = this.id
+    // console.log(this.selected)
 
     return {
       counter: 0,
       subTotal: 0,
-      arr: [this.cartItems.length],
       selected: '',
-      items: [],
+      items: ['Dine-In', 'Take Away', 'Delivery', 'Reservation'],
     }
   },
   computed: {
@@ -162,7 +155,9 @@ export default {
     ...mapActions('cart', ['addCartItem']),
     increaseItemQty(index) {
       const { qty } = this.cartItems[index]
+      console.log(qty)
       this.cartItems[index].qty = qty + 1
+      console.log(this.cartItems)
     },
     descreaseItemQty(index) {
       const { qty } = this.cartItems[index]

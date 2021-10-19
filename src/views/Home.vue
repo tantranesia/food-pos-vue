@@ -135,7 +135,8 @@ export default {
   mounted() {
     this.getData()
     this.getDate()
-    this.onAdd()
+
+    // this.onAdd()
     this.isMini()
   },
   methods: {
@@ -158,14 +159,8 @@ export default {
     // eslint-disable-next-line consistent-return
     async onAdd(product) {
       if (this.cartItems.length <= this.items.length) {
-        const cartData = {
-          category: product.category,
-          menu_id: product.menu_id,
-          image: product.image,
-          name: product.name,
-          price: product.price,
-          description: product.description,
-        }
+        const cartData = product
+        cartData.qty = 0
 
         this.addCartItem(cartData)
 

@@ -33,7 +33,8 @@
     "vue2-leaflet": "^2.7.1",
     "vue2-perfect-scrollbar": "^1.5.0",
     "vuetify": "^2.5.5",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-map-fields": "^1.4.1"
   },
   "devDependencies": {
     "@mdi/font": "^6.2.95",

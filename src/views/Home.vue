@@ -92,6 +92,8 @@
 <script>
 import axios from 'axios'
 import { mdiPlus, mdiMinus } from '@mdi/js'
+import { mapActions } from 'vuex'
+import { mapMultiRowFields } from 'vuex-map-fields'
 import image from '@/assets/image/nasi-goreng-jawa.jpeg'
 import trash from '@/assets/image/Button.png'
 import minus from '@/assets/image/minus-small.svg'
@@ -107,7 +109,6 @@ export default {
     return {
       items: [],
       itemsMobile: [],
-      cartItems: [],
       searchResult: null,
       search: '',
       image,
@@ -118,12 +119,12 @@ export default {
       dateNow: '',
       address: '',
       name: '',
-      id: 0,
       category: '',
       menu_id: 0,
     }
   },
   computed: {
+    ...mapMultiRowFields('cart', ['cartItems']),
     getSearch() {
       return this.items.filter(detail => detail.name.toLowerCase().includes(this.search.toLowerCase()))
     },
@@ -138,6 +139,7 @@ export default {
     this.isMini()
   },
   methods: {
+    ...mapActions('cart', ['addCartItem']),
     async getData() {
       axios
         .get('https://wa-link.deploy.cbs.co.id/shop_data/SN4TCROYT-OE4QB')
@@ -152,17 +154,29 @@ export default {
       const timelaps = new Date()
       this.dateNow = timelaps.toDateString()
     },
+
     // eslint-disable-next-line consistent-return
     async onAdd(product) {
       if (this.cartItems.length <= this.items.length) {
-        await this.cartItems.push({
+        const cartData = {
           category: product.category,
           menu_id: product.menu_id,
           image: product.image,
           name: product.name,
           price: product.price,
           description: product.description,
-        })
+        }
+
+        this.addCartItem(cartData)
+
+        // await this.cartItems.push({
+        //   category: product.category,
+        //   menu_id: product.menu_id,
+        //   image: product.image,
+        //   name: product.name,
+        //   price: product.price,
+        //   description: product.description,
+        // })
       }
 
       console.log('lah', product)

@@ -140,41 +140,7 @@
                       max-width="150px"
                       max-height="100px"
                     />
-                    <v-row
-                      class="my-3 justify-sapce-between button-cart"
-                      md="6"
-                      sm="3"
-                    >
-                      <v-col
-                        md="2"
-                        sm="1"
-                      >
-                        <v-icon
-                          color="primary"
-                          @click="increaseCounter(20)"
-                        >
-                          {{ mdiPlus }}
-                        </v-icon>
-                      </v-col>
-                      <v-col
-                        md="2"
-                        sm="1"
-                      >
-                        <div color="base">
-                          <p class="white--text text-center card-cart">
-                            {{ counter }}
-                          </p>
-                        </div>
-                      </v-col>
-                      <v-col
-                        md="2"
-                        sm="1"
-                      >
-                        <v-icon color="primary">
-                          {{ mdiMinus }}
-                        </v-icon>
-                      </v-col>
-                    </v-row>
+                    <Counter />
                   </v-col>
                 </v-row>
                 <v-row class="justify-space-between mx-4">
@@ -202,9 +168,13 @@
 </template>
 <script>
 import { mdiPlus, mdiMinus } from '@mdi/js'
+import Counter from '@/components/Counter.vue'
 
 export default {
   name: 'HomeMobile',
+  components: {
+    Counter,
+  },
   props: {
     itemsMobile: {
       type: Array,
@@ -262,20 +232,8 @@ export default {
       }
       this.totalItems = this.cartItems.length
 
-      // this.result = await JSON.parse(JSON.stringify(this.cartItems))
-
       console.log('lah', product)
       console.log('cart items', this.cartItems)
-
-      // const exist = this.cartItems.find(x => x.menu_id === product.menu_id)
-      // if (exist) {
-      //   this.cartItems = this.cartItems.map(x => (x.menu_id === product.menu_id
-      //     ? { ...exist, category: exist.category + 1 }
-      //     : x))
-      // } else {
-      //   this.cartItems = [...exist, { ...product, category: 1 }]
-      // }
-      // console.log(exist, 'cek')
     },
     async isMini() {
       switch (this.$vuetify.breakpoint.name) {

@@ -20,6 +20,7 @@ module.exports = {
 
     // Disable max-len
     'max-len': 'off',
+    'no-shadow': 'off',
 
     // we don't want it
     semi: ['error', 'never'],

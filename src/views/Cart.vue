@@ -8,7 +8,6 @@
         <v-chip
           color="primary"
           class="mx-3"
-          :items="items"
           @change="selectedButton('Dine-In')"
         >
           Dine-In
@@ -16,7 +15,6 @@
         <v-chip
           color="primary"
           class="mx-3"
-          :items="items"
           @change="selectedButton('Take Away')"
         >
           Take Away
@@ -24,7 +22,6 @@
         <v-chip
           color="primary"
           class="mx-3"
-          :items="items"
           @change="selectedButton('Delivery')"
         >
           Delivery
@@ -53,7 +50,7 @@
               {{ item.name }}
             </p>
             <p class="white--text">
-              Rp{{ item.price * counter }}
+              Rp{{ item.price * item.qty }}
             </p>
           </v-col>
           <v-col
@@ -144,11 +141,8 @@ export default {
     this.subTotal = parseInt(this.counter * this.cartItems.price, 10)
     console.log(this.subTotal)
     this.items = ['Dine-In', 'Take Away', 'Delivery', 'Reservation']
-    this.selected = this.id
-    console.log(this.selected)
 
     return {
-      counter: 0,
       subTotal: 0,
       arr: [this.cartItems.length],
       selected: '',

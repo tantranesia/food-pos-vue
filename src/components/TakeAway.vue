@@ -19,6 +19,7 @@
         color="primary"
         class="my-10 button-order"
         block
+        type="submit"
       >
         Confirm Order
       </v-btn>
@@ -27,6 +28,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapMultiRowFields } from 'vuex-map-fields'
 
 export default {
   name: 'TakeAway',
@@ -34,6 +36,9 @@ export default {
     return {
       notes: '',
     }
+  },
+  computed: {
+    ...mapMultiRowFields('cart', ['cartItems']),
   },
   methods: {
     handleSubmit(e) {
@@ -49,7 +54,6 @@ export default {
         timestamp,
 
       }
-
       axios.post(baseURL, body).then(res => {
         console.log(res)
         window.open(`https://wa.me/${res.data.link}`, '_blank')

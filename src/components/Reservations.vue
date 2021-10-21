@@ -44,6 +44,7 @@
         color="primary"
         class="my-10 button-order"
         block
+        type="submit"
       >
         Confirm Order
       </v-btn>
@@ -52,6 +53,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapMultiRowFields } from 'vuex-map-fields'
 
 export default {
   name: 'Reservation',
@@ -63,6 +65,9 @@ export default {
       date: 0,
       time: 0,
     }
+  },
+  computed: {
+    ...mapMultiRowFields('cart', ['cartItems']),
   },
   methods: {
     handleSubmit(e) {

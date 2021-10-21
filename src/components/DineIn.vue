@@ -1,5 +1,5 @@
 <template>
-  <form @submit="handleSubmit">
+  <v-form @submit="handleSubmit">
     <v-col>
       <v-row class="mx-2">
         <v-text-field
@@ -32,14 +32,16 @@
         color="primary"
         class="my-10 button-order"
         block
+        type="submit"
       >
         Confirm Order
       </v-btn>
     </v-col>
-  </form>
+  </v-form>
 </template>
 <script>
 import axios from 'axios'
+import { mapMultiRowFields } from 'vuex-map-fields'
 
 export default {
   name: 'DineIn',
@@ -49,6 +51,9 @@ export default {
       guest: 0,
       notes: '',
     }
+  },
+  computed: {
+    ...mapMultiRowFields('cart', ['cartItems']),
   },
   methods: {
     handleSubmit(e) {

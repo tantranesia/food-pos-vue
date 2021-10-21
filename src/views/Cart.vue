@@ -112,6 +112,7 @@
         <delivery
           v-if="selected === 'Delivery'"
           data-key="Delivery"
+          :selected="selected"
         />
         <reservation
           v-else-if="selected === 'Reservation'"
@@ -132,7 +133,6 @@
 <script>
 import { mapActions } from 'vuex'
 import { mapMultiRowFields } from 'vuex-map-fields'
-import axios from 'axios'
 import DineIn from '@/components/DineIn.vue'
 import Delivery from '@/components/Delivery.vue'
 import Reservation from '@/components/Reservations.vue'
@@ -177,29 +177,6 @@ export default {
     selectedButton(value) {
       this.selected = value
       console.log(this.selected)
-    },
-    handleSubmit(e, payload) {
-      const timestamp = Date.now()
-      const baseURL = 'https://wa-link.deploy.cbs.co.id/SN4TCROYT-OE4QB/order'
-      const body = {
-        order_item: this.cartItems,
-        order_type: this.selected,
-        address: payload.address,
-        order_date: payload.date,
-        order_time: payload.time,
-        guest: payload.guest,
-        notes: payload.notes,
-        table_number: payload.table_number,
-        qty_order: this.cartItems.qty,
-        timestamp,
-
-      }
-
-      axios.post(baseURL, body).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.log(err)
-      })
     },
   },
 }

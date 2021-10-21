@@ -6,23 +6,26 @@
       </p>
       <v-row class="button-group">
         <v-chip
+          v-model="selected"
           color="primary"
           class="mx-3"
-          @change="selectedButton('Dine-In')"
+          @click="selectedButton('Dine-In')"
         >
           Dine-In
         </v-chip>
         <v-chip
+          v-model="selected"
           color="primary"
           class="mx-3"
-          @change="selectedButton('Take Away')"
+          @click="selectedButton('Take Away')"
         >
           Take Away
         </v-chip>
         <v-chip
+          v-model="selected"
           color="primary"
           class="mx-3"
-          @change="selectedButton('Delivery')"
+          @click="selectedButton('Delivery')"
         >
           Delivery
         </v-chip>
@@ -37,7 +40,7 @@
       </v-row>
       <v-flex class="my-10">
         <v-row
-          v-for="(item,index) in cartItems"
+          v-for="(item, index) in cartItems"
           :key="index"
           dense
         >
@@ -78,7 +81,7 @@
                   color="primary"
                   @click="increaseItemQty(index)"
                 >
-                  mdi-plus
+                  mdi mdi-plus
                 </v-icon>
               </v-col>
               <v-col
@@ -100,16 +103,28 @@
                   color="primary"
                   @click="descreaseItemQty(index)"
                 >
-                  mdi-minus
+                  mdi mdi-minus
                 </v-icon>
               </v-col>
             </v-row>
           </v-row>
         </v-row>
-        <dine-in v-if="selected === 'Dine-In'" />
-        <delivery v-if="selected === 'Delivery'" />
-        <reservation v-if="selected === 'Reservation'" />
-        <take-away v-if="selected === 'Take Away'" />
+        <dine-in
+          v-if="selected === 'Dine-In'"
+          data-key="Dine-in"
+        />
+        <delivery
+          v-if="selected === 'Delivery'"
+          data-key="Delivery"
+        />
+        <reservation
+          v-if="selected === 'Reservation'"
+          data-key="Reservation"
+        />
+        <take-away
+          v-if="selected === 'Take Away'"
+          data-key="Take Away"
+        />
       </v-flex>
     </v-col>
   </v-row>
@@ -117,6 +132,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { mapMultiRowFields } from 'vuex-map-fields'
+import axios from 'axios'
 import DineIn from '@/components/DineIn.vue'
 import Delivery from '@/components/Delivery.vue'
 import Reservation from '@/components/Reservations.vue'
@@ -130,23 +146,12 @@ export default {
     Reservation,
     TakeAway,
   },
-  props: {
-    cartItems: {
-      type: Array,
-      required: true,
-    },
-  },
-  data() {
-    console.log(this.cartItems, 'cek di cart')
-    this.subTotal = parseInt(this.counter * this.cartItems.price, 10)
-    console.log(this.subTotal)
-    this.items = ['Dine-In', 'Take Away', 'Delivery', 'Reservation']
 
+  data() {
     return {
       subTotal: 0,
-      arr: [this.cartItems.length],
       selected: '',
-      items: [],
+      items: ['Dine-In', 'Take Away', 'Delivery', 'Reservation'],
     }
   },
   computed: {
@@ -156,7 +161,9 @@ export default {
     ...mapActions('cart', ['addCartItem']),
     increaseItemQty(index) {
       const { qty } = this.cartItems[index]
+      console.log(qty)
       this.cartItems[index].qty = qty + 1
+      console.log(this.cartItems)
     },
     descreaseItemQty(index) {
       const { qty } = this.cartItems[index]
@@ -169,18 +176,30 @@ export default {
     },
     selectedButton(value) {
       this.selected = value
+      console.log(this.selected)
     },
-    toggleDineIn() {
-      this.dinein = !this.dinein
-    },
-    toggleDelivery() {
-      this.delivery = !this.delivery
-    },
-    toggleReservation() {
-      this.reservation = !this.reservation
-    },
-    toggleTakeAway() {
-      this.takeaway = !this.takeaway
+    handleSubmit(e, payload) {
+      const timestamp = Date.now()
+      const baseURL = 'https://wa-link.deploy.cbs.co.id/SN4TCROYT-OE4QB/order'
+      const body = {
+        order_item: this.cartItems,
+        order_type: this.selected,
+        address: payload.address,
+        order_date: payload.date,
+        order_time: payload.time,
+        guest: payload.guest,
+        notes: payload.notes,
+        table_number: payload.table_number,
+        qty_order: this.cartItems.qty,
+        timestamp,
+
+      }
+
+      axios.post(baseURL, body).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.log(err)
+      })
     },
   },
 }

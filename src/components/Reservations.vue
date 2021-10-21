@@ -1,6 +1,6 @@
 <template>
   <v-col>
-    <v-row>
+    <v-row class="mx-2">
       <v-text-field label="Order Date">
       </v-text-field>
       <v-text-field label="Order Time">
@@ -8,7 +8,7 @@
         </v-text-field>
       </v-text-field>
     </v-row>
-    <v-row>
+    <v-row class="mx-2">
       <v-text-field label="Guest">
       </v-text-field>
       <v-text-field label="Table Number">
@@ -22,7 +22,7 @@
     </v-row>
     <v-row class="justify-space-between mx-2">
       <p>Sub Total</p>
-      <p>{{ subTotal }}</p>
+      <p>Rp350000</p>
     </v-row>
     <v-btn
       color="primary"

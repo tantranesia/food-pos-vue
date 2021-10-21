@@ -99,65 +99,119 @@
                 Orders #34562
               </p>
               <v-row class="button-group">
-                <v-chip color="primary">
+                <v-chip
+                  color="primary"
+                  @click="selectedButton('Dine-In')"
+                >
                   Dine-In
                 </v-chip>
-                <v-chip color="primary">
+                <v-chip
+                  color="primary"
+                  @click="selectedButton('Take Away')"
+                >
                   Take Away
                 </v-chip>
-                <v-chip color="primary">
+                <v-chip
+                  color="primary"
+                  @click="selectedButton('Delivery')"
+                >
                   Delivery
                 </v-chip>
-                <v-chip color="primary">
+                <v-chip
+                  color="primary"
+                  @click="selectedButton('Reservation')"
+                >
                   Reservation
                 </v-chip>
               </v-row>
               <v-flex class="my-10">
-                <v-row
-                  v-for="item in cartItems"
-                  :key="item.menu_id"
-                  dense
+                <v-col
+                  v-for="(item, index) in cartItems"
+                  :key="index"
                 >
-                  <v-col
-                    md="6"
-                    sm="2"
-                    class="mx-auto"
+                  <v-row
+                    dense
                   >
-                    <p class="white--text">
-                      {{ item.name }}
-                    </p>
-                    <p class="white--text">
-                      Rp{{ item.price }}
-                    </p>
-                  </v-col>
-                  <v-col
+                    <v-col
+                      md="6"
+                      sm="2"
+                      class="mx-auto"
+                    >
+                      <p class="white--text">
+                        {{ item.name }}
+                      </p>
+                      <p class="white--text">
+                        Rp{{ item.price }}
+                      </p>
+                    </v-col>
+                    <v-col
+                      md="6"
+                      sm="3"
+                    >
+                      <v-img
+                        :src="item.image"
+                        class="rounded-lg mx-auto my-2"
+                        max-width="150px"
+                        max-height="100px"
+                      />
+                    </v-col>
+                  </v-row>
+                  <v-row
+                    class="my-3 justify-sapce-between button-cart"
                     md="6"
                     sm="3"
                   >
-                    <v-img
-                      :src="item.image"
-                      class="rounded-lg mx-auto my-2"
-                      max-width="150px"
-                      max-height="100px"
-                    />
-                    <Counter />
-                  </v-col>
-                </v-row>
-                <v-row class="justify-space-between mx-4">
-                  <p>Discount</p>
-                  <p>0</p>
-                </v-row>
-                <v-row class="justify-space-between mx-4">
-                  <p>Sub Total</p>
-                  <p>0</p>
-                </v-row>
-                <v-btn
-                  color="primary"
-                  class="my-10"
-                  block
-                >
-                  Confirm Order
-                </v-btn>
+                    <v-col
+                      md="2"
+                      sm="1"
+                    >
+                      <v-icon
+                        color="primary"
+                        @click="increaseItemQty(index)"
+                      >
+                        mdi mdi-plus
+                      </v-icon>
+                    </v-col>
+                    <v-col
+                      md="2"
+                      sm="1"
+                      class="mx-5"
+                    >
+                      <div color="base">
+                        <p class="white--text text-center card-cart">
+                          {{ item.qty }}
+                        </p>
+                      </div>
+                    </v-col>
+                    <v-col
+                      md="2"
+                      sm="1"
+                    >
+                      <v-icon
+                        color="primary"
+                        @click="descreaseItemQty(index)"
+                      >
+                        mdi mdi-minus
+                      </v-icon>
+                    </v-col>
+                  </v-row>
+                </v-col>
+                <dine-in
+                  v-if="selected === 'Dine-In'"
+                  data-key="Dine-in"
+                />
+                <delivery
+                  v-if="selected === 'Delivery'"
+                  data-key="Delivery"
+                />
+                <reservation
+                  v-if="selected === 'Reservation'"
+                  data-key="Reservation"
+                />
+                <take-away
+                  v-if="selected === 'Take Away'"
+                  data-key="Take Away"
+                />
               </v-flex>
             </v-col>
           </v-card>
@@ -167,13 +221,20 @@
   </v-col>
 </template>
 <script>
-import { mdiPlus, mdiMinus } from '@mdi/js'
-import Counter from '@/components/Counter.vue'
+import { mapActions } from 'vuex'
+import { mapMultiRowFields } from 'vuex-map-fields'
+import DineIn from '@/components/DineIn.vue'
+import Delivery from '@/components/Delivery.vue'
+import Reservation from '@/components/Reservations.vue'
+import TakeAway from '@/components/TakeAway.vue'
 
 export default {
   name: 'HomeMobile',
   components: {
-    Counter,
+    DineIn,
+    Delivery,
+    Reservation,
+    TakeAway,
   },
   props: {
     itemsMobile: {
@@ -199,15 +260,13 @@ export default {
   },
   data() {
     return {
-      mdiPlus,
-      mdiMinus,
       search: '',
-      cartItems: [],
       totalItems: 0,
-      counter: 0,
+      selected: '',
     }
   },
   computed: {
+    ...mapMultiRowFields('cart', ['cartItems']),
     getSearch() {
       return this.itemsMobile.filter(detail => detail.name.toLowerCase().includes(this.search.toLowerCase()))
     },
@@ -216,19 +275,39 @@ export default {
     },
   },
   methods: {
-    increaseCounter(increaseLimit) {
-      // eslint-disable-next-line no-plusplus
-      if (this.counter < increaseLimit) this.counter++
+    ...mapActions('cart', ['addCartItem']),
+    increaseItemQty(index) {
+      const { qty } = this.cartItems[index]
+      console.log(qty)
+      this.cartItems[index].qty = qty + 1
+      console.log(this.cartItems)
+    },
+    descreaseItemQty(index) {
+      const { qty } = this.cartItems[index]
+      if (qty > 0) {
+        this.cartItems[index].qty = qty - 1
+      }
+      if (qty === 0) {
+        this.cartItems.splice(index, 1)
+      }
+    },
+    selectedButton(value) {
+      this.selected = value
+      console.log(this.selected)
     },
     async onAdd(product) {
       if (this.cartItems.length <= this.items.length) {
-        this.cartItems.push({
-          category: product.category,
-          menu_id: product.menu_id,
-          image: product.image,
-          name: product.name,
-          price: product.price,
-        })
+        // this.cartItems.push({
+        //   category: product.category,
+        //   menu_id: product.menu_id,
+        //   image: product.image,
+        //   name: product.name,
+        //   price: product.price,
+        // })
+        const cartData = product
+        cartData.qty = 0
+
+        this.addCartItem(cartData)
       }
       this.totalItems = this.cartItems.length
 

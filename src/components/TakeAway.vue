@@ -11,7 +11,7 @@
     </v-row>
     <v-row class="justify-space-between mx-2">
       <p>Sub Total</p>
-      <p>{{ subTotal }}</p>
+      <p>Rp350000</p>
     </v-row>
     <v-btn
       color="primary"

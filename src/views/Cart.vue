@@ -109,21 +109,21 @@
             </v-row>
           </v-row>
         </v-row>
-        <dine-in
-          v-if="selected === 'Dine-In'"
-          data-key="Dine-in"
-        />
         <delivery
           v-if="selected === 'Delivery'"
           data-key="Delivery"
         />
         <reservation
-          v-if="selected === 'Reservation'"
+          v-else-if="selected === 'Reservation'"
           data-key="Reservation"
         />
         <take-away
-          v-if="selected === 'Take Away'"
+          v-else-if="selected === 'Take Away'"
           data-key="Take Away"
+        />
+        <dine-in
+          v-else
+          data-key="Dine-in"
         />
       </v-flex>
     </v-col>

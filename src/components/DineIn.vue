@@ -62,9 +62,8 @@ export default {
       const timestamp = Date.now()
       const baseURL = 'https://wa-link.deploy.cbs.co.id/SN4TCROYT-OE4QB/order'
       const body = {
-        order_item: this.cartItems,
+        order_item: this.cartItems.map(col => ({ name: col.name, qty_order: col.qty })),
         order_type: 'Dine-In',
-        qty_order: this.cartItems.qty,
         table: this.table,
         guest: this.guest,
         notes: this.notes,

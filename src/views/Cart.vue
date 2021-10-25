@@ -120,6 +120,7 @@
         />
         <take-away
           v-else-if="selected === 'Take Away'"
+          :items="items"
           data-key="Take Away"
         />
         <dine-in
@@ -148,10 +149,13 @@ export default {
   },
 
   data() {
+    this.items = this.cartItems
+
     return {
       subTotal: 0,
       selected: '',
-      items: ['Dine-In', 'Take Away', 'Delivery', 'Reservation'],
+      items: [],
+
     }
   },
   computed: {

@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       notes: '',
+      insideCart: [],
     }
   },
   computed: {
@@ -43,17 +44,22 @@ export default {
   methods: {
     handleSubmit(e) {
       console.log(this.cartItems, 'cek cart newS')
+
+      //   const tryitems = [...this.cartItems]
       e.preventDefault()
       const timestamp = Date.now()
       const baseURL = 'https://wa-link.deploy.cbs.co.id/SN4TCROYT-OE4QB/order'
       const body = {
-        order_item: this.cartItems,
+        order_item: this.cartItems.map(col => ({ name: col.name, qty_order: col.qty })),
         order_type: 'Take Away',
-        qty_order: this.cartItems.qty,
         notes: this.notes,
         timestamp,
 
       }
+
+      //   const data = JSON.stringify(body)
+
+      console.log(body, 'cek order item')
       axios.post(baseURL, body).then(res => {
         console.log(res)
         window.open(`https://wa.me/${res.data.link}`, '_blank')

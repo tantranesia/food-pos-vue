@@ -2,18 +2,80 @@
   <v-form @submit="handleSubmit">
     <v-col>
       <v-row class="mx-2">
-        <v-text-field
-          v-model="date"
-          label="Order Date"
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          :return-value.sync="date"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
         >
-        </v-text-field>
-        <v-text-field
-          v-model="time"
-          label="Order Time"
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="date"
+              label="Picker in menu"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="date"
+            no-title
+            scrollable
+          >
+            <v-spacer></v-spacer>
+            <v-btn
+              text
+              color="primary"
+              @click="menu = false"
+            >
+              Cancel
+            </v-btn>
+            <v-btn
+              text
+              color="primary"
+              @click="$refs.menu.save(date)"
+            >
+              OK
+            </v-btn>
+          </v-date-picker>
+        </v-menu>
+        <v-menu
+          ref="menu"
+          v-model="menu2"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          :return-value.sync="time"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="290px"
         >
-          <v-text-field>
-          </v-text-field>
-        </v-text-field>
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="time"
+              label="Picker in menu"
+              prepend-icon="mdi-clock-time-four-outline"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-time-picker
+            v-if="menu2"
+            v-model="time"
+            full-width
+            @click:minute="$refs.menu.save(time)"
+          ></v-time-picker>
+        </v-menu>
+        <v-row
+          justify="space-around"
+          align="center"
+        >
+        </v-row>
       </v-row>
       <v-row class="mx-2">
         <v-text-field
@@ -62,8 +124,10 @@ export default {
       guest: 0,
       table: 0,
       notes: '',
-      date: 0,
-      time: 0,
+      date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+      time: null,
+      menu: false,
+      menu2: false,
     }
   },
   computed: {
@@ -80,9 +144,9 @@ export default {
         order_type: 'Reservation',
         notes: this.notes,
         guest: this.guest,
-        table: this.table,
-        date: this.date,
-        time: this.time,
+        table_number: this.table,
+        order_date: this.date,
+        order_time: this.time,
         timestamp,
 
       }

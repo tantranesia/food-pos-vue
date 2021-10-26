@@ -69,9 +69,9 @@
           </v-col>
           <v-row>
             <v-row
-              class="my-3 justify-sapce-between button-cart"
-              md="6"
-              sm="3"
+              class="my-3 justify-space-between"
+              md="3"
+              sm="1"
             >
               <v-col
                 md="2"
@@ -90,7 +90,7 @@
                 class="mx-5"
               >
                 <div color="base">
-                  <p class="white--text text-center card-cart">
+                  <p class="white--text text-center">
                     {{ item.qty }}
                   </p>
                 </div>

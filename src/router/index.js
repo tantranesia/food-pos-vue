@@ -9,7 +9,7 @@ const routes = [
     redirect: 'home',
   },
   {
-    path: '/home',
+    path: '/:key',
     name: 'home',
     component: () => import('@/views/Home.vue'),
     meta: {

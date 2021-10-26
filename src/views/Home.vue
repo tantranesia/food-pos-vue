@@ -125,6 +125,11 @@ export default {
   },
   computed: {
     ...mapMultiRowFields('cart', ['cartItems']),
+    key() {
+      console.log(this.$route.params.key)
+
+      return this.$route.params.key
+    },
     getSearch() {
       return this.items.filter(detail => detail.name.toLowerCase().includes(this.search.toLowerCase()))
     },

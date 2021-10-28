@@ -121,15 +121,11 @@ export default {
       name: '',
       category: '',
       menu_id: 0,
+      key: '',
     }
   },
   computed: {
     ...mapMultiRowFields('cart', ['cartItems']),
-    key() {
-      console.log(this.$route.params.key)
-
-      return this.$route.params.key
-    },
     getSearch() {
       return this.items.filter(detail => detail.name.toLowerCase().includes(this.search.toLowerCase()))
     },
@@ -137,18 +133,25 @@ export default {
       return this.isMini()
     },
   },
-  mounted() {
-    this.getData()
-    this.getDate()
+  async mounted() {
+    const key = window.location.href.split('/')[3]
+    console.log(key, 'cek')
+    await this.getData(key)
+    await this.getDate()
+    await this.getKey()
 
     // this.onAdd()
     this.isMini()
   },
   methods: {
     ...mapActions('cart', ['addCartItem']),
-    async getData() {
+    getKey() {
+      // eslint-disable-next-line prefer-destructuring
+
+    },
+    async getData(key) {
       axios
-        .get('https://wa-link.deploy.cbs.co.id/shop_data/SN4TCROYT-OE4QB')
+        .get(`https://wa-link.deploy.cbs.co.id/shop_data/${key}`)
         .then(res => {
           this.items = res.data.data.shop_data.menu
           this.address = res.data.data.shop_data.alamat

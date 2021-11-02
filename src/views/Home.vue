@@ -20,6 +20,13 @@
           sm="4"
           class="py-10 px-5"
         >
+          <!-- <v-icon>
+            mdi open-in-full
+          </v-icon> -->
+          <v-btn @click="toggleFull()">
+            Full
+          </v-btn>
+
           <v-row>
             <p class="display-1 white--text text--darken-2 mx-5">
               {{ name }}
@@ -139,6 +146,7 @@ export default {
     await this.getData(key)
     await this.getDate()
     await this.getKey()
+    this.toggleFull()
 
     // this.onAdd()
     this.isMini()
@@ -148,6 +156,34 @@ export default {
     getKey() {
       // eslint-disable-next-line prefer-destructuring
 
+    },
+    toggleFull(elem) {
+      this.elem = elem || document.documentElement
+
+      if (
+        !document.fullscreenElement
+      && !document.mozFullScreenElement
+      && !document.webkitFullscreenElement
+      && !document.msFullscreenElement
+      ) {
+        if (elem.requestFullscreen) {
+          elem.requestFullscreen()
+        } else if (elem.msRequestFullscreen) {
+          elem.msRequestFullscreen()
+        } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen()
+        } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT)
+        }
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen()
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen()
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen()
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen()
+      }
     },
     async getData(key) {
       axios

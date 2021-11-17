@@ -158,6 +158,7 @@ export default {
 
     },
     toggleFull(elem) {
+      console.log(elem)
       this.elem = elem || document.documentElement
 
       if (

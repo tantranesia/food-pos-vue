@@ -53,6 +53,9 @@
               {{ item.name }}
             </p>
             <p class="white--text">
+              <pre>
+                {{ item.qty }}
+              </pre>
               Rp{{ item.price * item.qty }}
             </p>
           </v-col>
@@ -91,7 +94,7 @@
               >
                 <div color="base">
                   <p class="white--text text-center">
-                    {{ item.qty }}
+                    {{ qty }}
                   </p>
                 </div>
               </v-col>
@@ -155,26 +158,30 @@ export default {
       subTotal: 0,
       selected: '',
       items: [],
+      qty: 1,
 
     }
   },
   computed: {
     ...mapMultiRowFields('cart', ['cartItems']),
   },
+  watch: {
+
+  },
   methods: {
     ...mapActions('cart', ['addCartItem']),
     increaseItemQty(index) {
-      const { qty } = this.cartItems[index]
-      console.log(qty)
-      this.cartItems[index].qty = qty + 1
+      this.qty = this.cartItems[index].qty
+      console.log(this.qty, 'cek')
+      this.cartItems[index].qty = this.qty + 1
       console.log(this.cartItems)
     },
     descreaseItemQty(index) {
-      const { qty } = this.cartItems[index]
-      if (qty > 0) {
-        this.cartItems[index].qty = qty - 1
+      this.qty = this.cartItems[index]
+      if (this.qty > 0) {
+        this.cartItems[index].qty = this.qty - 1
       }
-      if (qty === 0) {
+      if (this.qty === 0) {
         this.cartItems.splice(index, 1)
       }
     },
